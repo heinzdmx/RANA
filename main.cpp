@@ -47,12 +47,26 @@ int main(int argc, char *argv[])
 	qDebug() << Phys::getMersenneInteger(1, RAND_MAX) << Phys::getMersenneInteger(1, RAND_MAX) << Phys::getMersenneFloat(1, RAND_MAX) <<Phys::getMersenneInteger(1, RAND_MAX) ;
 
 
-	QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
+    QCommandLineParser parser;
+
+    // A simple option to maximize the screen
+    QCommandLineOption maximizeOption(QStringList() << "m" << "maximize", "Maximize screen");
+    parser.addOption(maximizeOption);
+
+    // Process the actual command line arguments given by the user
+    parser.process(app);
+
+    bool maximize = parser.isSet(maximizeOption);
+
     MainWindow *w = new MainWindow();
 
     Output::Inst()->setMainWindow(w);
 
+    if (maximize) w->setWindowState(Qt::WindowMaximized);
+
     w->show();
 
-    return a.exec();
+    return app.exec();
 }
