@@ -715,6 +715,41 @@ void MainWindow::on_runButton_clicked()
 	}
 }
 
+void MainWindow::keyPressEvent(QKeyEvent * event)
+{
+    if (event->key() == Qt::Key_I)
+    {
+        // initialize
+        if (ui->generateButton->isEnabled()){
+            ui->generateButton->click();
+        }
+    }
+    else if( event->key() == Qt::Key_P )
+    {
+       // pause / play
+       if (ui->runButton->isEnabled())
+       {
+           ui->runButton->click();
+       }
+    }
+    else if( event->key() == Qt::Key_G )
+    {
+        // generate map
+        if (ui->generateEmptyMapButton->isEnabled())
+        {
+            ui->generateEmptyMapButton->click();
+        }
+    }
+    else if( event->key() == Qt::Key_C )
+    {
+       // clear debug screen
+       ui->pushButton->click();
+    }
+    else if( event->key() == Qt::Key_Q )
+    {
+       qApp->quit();
+    }
+}
 /**
  * @brief Changes the runbuttons text to reflect whether it starts
  * or stops the simulation

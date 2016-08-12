@@ -86,6 +86,7 @@ public:
 public slots:
 
     void wheelEvent(QWheelEvent *event);
+    void keyPressEvent(QKeyEvent* event); 
 
 private slots:
 
