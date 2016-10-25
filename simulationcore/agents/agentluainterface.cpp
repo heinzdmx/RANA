@@ -72,15 +72,16 @@ AgentLuaInterface::AgentLuaInterface(int ID, double posX, double posY, double po
         lua_getglobal(L, "package");
         lua_getfield(L, -1, "path");
         std::string cur_path = lua_tostring(L, -1);
-        std::string module_path = Output::Inst()->RanaDir;
-        //Output::Inst()->kdebug(module_path.c_str());
-        module_path.append("/modules/?.lua");
-        //Output::Inst()->kdebug(module_path.c_str());
+
+        std::string modules_rana = std::string(Output::Inst()->RanaDir).append("/modules/?.lua").append(";");
+        std::string modules_agent = std::string(Output::Inst()->AgentPath).append("/modules/?.lua").append(";");
+        std::string lua_agents = std::string(Output::Inst()->AgentPath).append("?.lua").append(";");
+
         cur_path.append(";");
-        cur_path.append(module_path);
-        cur_path.append(";");
-        cur_path.append(Output::Inst()->AgentPath);
-        cur_path.append("?.lua");
+        cur_path.append(modules_rana);
+        cur_path.append(modules_agent);
+        cur_path.append(lua_agents);
+
         lua_pop(L,1);
         lua_pushstring(L, cur_path.c_str());
         lua_setfield(L,-2,"path");
